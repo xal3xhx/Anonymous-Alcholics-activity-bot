@@ -51,28 +51,28 @@ async def is_time_between(begin_time, end_time, check_time=None):
         return check_time >= begin_time or check_time <= end_time
 
 async def add_to_db(date, time1, time2):
+    new = True
     time = f"{time1}-{time2}"
     query = "SELECT * FROM stats"
     rows = await database.fetch_all(query=query)
     for row in rows:
         if str(row[0]) == str(date):
             if str(row[1]) == str(time):
-                print("update")
+                new = False
                 query = "UPDATE stats SET count = (:count) WHERE Date = (:Date) AND Time = (:Time)"
                 values = [
                     {"count": str(int(row[2])+1), "Date": date, "Time": time}
                 ]
                 await database.execute_many(query=query, values=values)
                 break
-            break
-    else:
-        # create new
+    if new:
         print("new")
         query = "INSERT INTO stats(Date, Time, count) VALUES (:Date, :Time, :count)"
         values = [
             {"Date": date, "Time": time, "count": 1}
         ]
         await database.execute_many(query=query, values=values)
+        new = False
 
 @bot.event
 async def on_ready():
