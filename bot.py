@@ -15,10 +15,12 @@ development = False
 
 keywords = [
     "cheers",
+    "Cheers",
     "take a shot",
     "take a drink",
     "drink",
-    "Sipskie"
+    "Sipskie",
+    "Shots",
 ]
 
 load_dotenv()
@@ -53,8 +55,8 @@ async def add_to_db(date, time1, time2):
     query = "SELECT * FROM stats"
     rows = await database.fetch_all(query=query)
     for row in rows:
-        if row[0] == date:
-            if row[1] == time:
+        if str(row[0]) == str(date):
+            if str(row[1]) == str(time):
                 print("update")
                 query = "UPDATE stats SET count = (:count) WHERE Date = (:Date) AND Time = (:Time)"
                 values = [
