@@ -2,3 +2,4 @@
 config.ini
 .vscode/launch.json
 .vscode/settings.json
+graph maker/bot.py
