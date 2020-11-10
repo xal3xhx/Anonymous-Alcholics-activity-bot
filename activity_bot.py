@@ -38,9 +38,9 @@ else:
     import environ
     env = environ.Env(DEBUG=(bool, False))
     bot = commands.Bot(command_prefix='#')
-    TOKEN = env('BOT_TOKEN')
+    TOKEN = env('BOT_TOKEN_ACTIVITY')
     GUILD = env('GUILD')
-    database = Database(env('CLEARDB_DATABASE_URL'))
+    database = Database(env('DB_URL'))
 
 async def is_time_between(begin_time, end_time, check_time=None):
     # If check time is not given, default to current UTC time
